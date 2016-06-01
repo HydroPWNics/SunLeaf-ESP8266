@@ -52,7 +52,7 @@ ESP_HOSTNAME        ?= esp-link
 
 # Base directory for the compiler. Needs a / at the end.
 # Typically you'll install https://github.com/pfalcon/esp-open-sdk
-XTENSA_TOOLS_ROOT ?= $(abspath ../esp-open-sdk/xtensa-lx106-elf/bin)/
+XTENSA_TOOLS_ROOT ?= /opt/esp-open-sdk/xtensa-lx106-elf/bin/
 
 # Firmware version 
 # WARNING: if you change this expect to make code adjustments elsewhere, don't expect
@@ -78,9 +78,8 @@ BOOTFILE	?= $(SDK_BASE/bin/boot_v1.5.bin)
 # Esptool.py path and port, only used for 1-time serial flashing
 # Typically you'll use https://github.com/themadinventor/esptool
 # Windows users use the com port i.e: ESPPORT ?= com3
-ESPTOOL		?= $(abspath ../esp-open-sdk/esptool/esptool.py)
+ESPTOOL		?= /opt/esp-open-sdk/esptool/esptool.py
 ESPPORT		?= /dev/ttyUSB0
-ESPBAUD		?= 460800
 
 # --------------- chipset configuration   ---------------
 
