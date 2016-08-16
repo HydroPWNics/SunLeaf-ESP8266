@@ -1,24 +1,11 @@
-var clientId = "MyApp";
-var clientSecret = "MySecret";
-
-var authorizationBasic = $.base64.btoa(clientId + ':' + clientSecret);
-
-var request = new XMLHttpRequest();
-request.open('POST', oAuth.AuthorizationServer, true);
-request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-request.setRequestHeader('Authorization', 'Basic ' + authorizationBasic);
-request.setRequestHeader('Accept', 'application/json');
-request.send("username=John&password=Smith&grant_type=password");
-
-request.onreadystatechange = function () {
-    if (request.readyState == 4) {
-    alert(request.responseText);
-    }
-};
-
-function fetchData() {
-  //ajaxJson("GET", "/mqtt", displayMqtt, function () {
-  //  window.setTimeout(fetchMqtt, 1000);
-  //});
+function postData() {
+    $("#reset-button").addEventListener("click", function (e) {
+        e.preventDefault();
+        var co = $("#console");
+        co.innerHTML = "";
+        ajaxSpin('POST', "http://posttestserver.com/post.php",
+          function (resp) { showNotification("Resetting esp-link"); co.textEnd = 0; fetchText(2000, false); },
+          function (s, st) { showWarning("Error resetting esp-link"); }
+        );
+    });
 }
-
