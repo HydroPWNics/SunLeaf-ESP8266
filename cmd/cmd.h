@@ -36,6 +36,7 @@ typedef enum {
   CMD_RESP_V,         // response with a value
   CMD_RESP_CB,        // response with a callback
   CMD_WIFI_STATUS,    // get the current wifi status
+  CMD_SLEEP,
   CMD_CB_ADD,
   CMD_CB_EVENTS,
   CMD_GET_TIME,       // get current time in seconds since the unix epoch
@@ -47,7 +48,7 @@ typedef enum {
 
   CMD_REST_SETUP = 20,
   CMD_REST_REQUEST,
-  CMD_REST_SETHEADER,
+  CMD_REST_SETHEADER
 } CmdName;
 
 typedef void (*cmdfunc_t)(CmdPacket *cmd);

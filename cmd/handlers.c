@@ -3,6 +3,7 @@
 // Adapted from: github.com/tuanpmt/esp_bridge, Created on: Jan 9, 2015, Author: Minh
 
 #include "esp8266.h"
+#include "commands.h"
 #include "cmd.h"
 #include <cgiwifi.h>
 #ifdef MQTT
@@ -22,6 +23,7 @@ static void cmdNull(CmdPacket *cmd);
 static void cmdSync(CmdPacket *cmd);
 static void cmdWifiStatus(CmdPacket *cmd);
 static void cmdAddCallback(CmdPacket *cmd);
+static void cmdSleep(CmdPacket *cmd);
 
 // keep track of last status sent to uC so we can notify it when it changes
 static uint8_t lastWifiStatus = wifiIsDisconnected;
@@ -32,6 +34,7 @@ const CmdList commands[] = {
   {CMD_NULL,            "NULL",           cmdNull},        // no-op
   {CMD_SYNC,            "SYNC",           cmdSync},        // synchronize
   {CMD_WIFI_STATUS,     "WIFI_STATUS",    cmdWifiStatus},
+  {CMD_SLEEP,           "SLEEP",          cmdSleep}, 
   {CMD_CB_ADD,          "ADD_CB",         cmdAddCallback},
 #ifdef MQTT
   {CMD_MQTT_SETUP,      "MQTT_SETUP",     MQTTCMD_Setup},
@@ -149,6 +152,14 @@ cmdWifiStatus(CmdPacket *cmd) {
   return;
 }
 
+//puts the ESP to sleep
+static void ICACHE_FLASH_ATTR 
+cmdSleep(CmdPacket *cmd) {
+//  uint32_t sleepTime = 30000000;
+  cmdResponseStart(CMD_RESP_V,espSleep(42),42); //should put this to sleep for 30s attach gpio16 to RST
+  cmdResponseEnd();	
+  return;
+}
 
 // Command handler to add a callback to the named-callbacks list, this is for a callback to the uC
 static void ICACHE_FLASH_ATTR
